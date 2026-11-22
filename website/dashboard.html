@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ColdTrust Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
+<style>
+:root{--g9:#0f3d24;--g7:#1f6f3d;--g1:#eaf3e6;--gold:#e8a317;--bg:#f4f6f2;--card:#fff;--tx:#1c2b33;--mu:#6b7a80;--bd:#e3e8e1;--ok:#1f9d55;--w:#e8a317;--wr:#f07b1d;--cr:#d64545;--sh:0 1px 3px rgba(15,61,36,.08),0 6px 18px rgba(15,61,36,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1512;--card:#16201b;--tx:#e8efe9;--mu:#92a39a;--bd:#243029;--g1:#1b2a21;--sh:0 1px 3px rgba(0,0,0,.4)}}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+button{font:inherit;cursor:pointer}.hide{display:none!important}
+#login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 20% 10%,#1f6f3d,#0f3d24 60%)}
+.lbox{background:var(--card);padding:36px;border-radius:18px;width:min(380px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.lbox h1{margin:0 0 4px;font-size:24px;color:var(--g7)}.lbox p{margin:0 0 20px;color:var(--mu)}
+input,select{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx);font:inherit;margin-bottom:10px}
+.btn{background:var(--g7);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:600;transition:.15s}.btn:hover{background:var(--g9)}
+.btn.sm{padding:6px 12px;font-size:12px}.btn.alt{background:var(--g1);color:var(--g7)}.btn.red{background:var(--cr)}.btn.gold{background:var(--gold);color:#3a2a00}
+#err{color:var(--cr);min-height:18px;margin:6px 0}
+#app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{background:linear-gradient(180deg,var(--g9),#0a2a19);color:#cfe3d4;padding:22px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+.brand{font-size:21px;font-weight:800;color:#fff;padding:0 10px 18px}.brand span{color:var(--gold)}
+aside a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;color:#cfe3d4;text-decoration:none;margin-bottom:3px;cursor:pointer}
+aside a:hover{background:rgba(255,255,255,.08)}aside a.on{background:rgba(232,163,23,.18);color:#fff;box-shadow:inset 3px 0 var(--gold)}
+.badge{margin-left:auto;background:var(--cr);color:#fff;border-radius:99px;font-size:11px;padding:1px 7px}
+.me{margin-top:auto;padding:12px;border-top:1px solid rgba(255,255,255,.12);font-size:12px}
+main{padding:24px 30px;min-width:0}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:18px}.top h2{margin:0;font-size:22px}.pill{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--g1);color:var(--g7)}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.card{background:var(--card);border-radius:16px;padding:18px;box-shadow:var(--sh);border:1px solid var(--bd)}
+.card.sel{outline:2px solid var(--g7)}.chcard{cursor:pointer;border-top:4px solid var(--ok);transition:.15s}.chcard:hover{transform:translateY(-2px)}
+.L-WATCH{border-top-color:var(--w)!important}.L-WARNING{border-top-color:var(--wr)!important}.L-CRITICAL{border-top-color:var(--cr)!important}
+.big{font-size:34px;font-weight:800;letter-spacing:-1px}.mu{color:var(--mu)}.sm{font-size:12px}
+.lv{display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:700;color:#fff;background:var(--ok)}
+.lv.WATCH{background:var(--w)}.lv.WARNING{background:var(--wr)}.lv.CRITICAL{background:var(--cr);animation:pu 1s infinite}.lv.OFF{background:#8a948f}
+@keyframes pu{50%{opacity:.55}}
+.kpi .v{font-size:28px;font-weight:800}.kpi .t{color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);padding:8px;border-bottom:1px solid var(--bd)}
+td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:top}tr:last-child td{border:0}.tw{overflow-x:auto}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}svg text{fill:var(--mu);font-size:10px}
+.msg{background:var(--g1);border-radius:10px;padding:8px 12px;margin-top:8px;font-size:13px}
+#toast{position:fixed;right:20px;bottom:20px;background:var(--g9);color:#fff;padding:10px 16px;border-radius:10px;opacity:0;transition:.3s;pointer-events:none}#toast.on{opacity:1}
+#login{background:linear-gradient(135deg,rgba(15,61,36,.86),rgba(10,42,25,.55)),url(/site-assets/fruitroom.webp) center/cover}
+.lbox{backdrop-filter:blur(10px);background:color-mix(in srgb,var(--card) 92%,transparent);border-top:4px solid var(--gold)}
+.top{position:relative;min-height:128px;padding:22px 26px;border-radius:20px;color:#fff;overflow:hidden;background:linear-gradient(90deg,rgba(15,61,36,.92),rgba(15,61,36,.35)),var(--pic,none) center/cover;box-shadow:var(--sh);flex-wrap:wrap;align-content:flex-end}.top h2{font-size:28px;text-shadow:0 2px 8px #0007;flex:1 1 100%;margin:0}.top .pill{background:rgba(255,255,255,.2);color:#fff;backdrop-filter:blur(6px)}
+main[data-p=monitor]{--pic:url(/site-assets/coldroom.webp)}
+main[data-p=alerts]{--pic:url(/site-assets/cctv.webp)}
+main[data-p=lots]{--pic:url(/site-assets/team.webp)}
+main[data-p=maint]{--pic:url(/site-assets/worker.webp)}
+main[data-p=insights]{--pic:url(/site-assets/solarstorage.webp)}
+main[data-p=apps]{--pic:url(/site-assets/team.webp)}
+main[data-p=sugs]{--pic:url(/site-assets/farmcow.webp)}
+main[data-p=admin]{--pic:url(/site-assets/bluebuilding.webp)}
+.card{transition:.2s}.card:hover{box-shadow:0 10px 28px rgba(15,61,36,.14)}
+aside{background:linear-gradient(180deg,rgba(15,61,36,.95),rgba(10,42,25,.98)),url(/site-assets/aerial.webp) center/cover}
+.mav{width:56px;height:56px;border-radius:50%;object-fit:cover;display:block;margin-bottom:8px;border:2px solid var(--gold);box-shadow:0 4px 14px #0006}
+@media(max-width:800px){#app{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;overflow-x:auto;padding:8px}.brand,.me{display:none}aside a{white-space:nowrap}main{padding:16px}}
+</style></head><body>
+<div id="login"><form class="lbox" onsubmit="return doLogin(event)"><h1>❄️ Cold<span style="color:var(--gold)">Trust</span></h1><p>Cold-storage monitoring dashboard</p>
+<input id="u" placeholder="Username" autocomplete="username" required><input id="p" type="password" placeholder="Password" autocomplete="current-password" required>
+<div id="err"></div><button class="btn" style="width:100%">Sign in</button><p class="sm" style="margin-top:14px">Demo: owner / owner123</p></form></div>
+<div id="app" class="hide"><aside><div class="brand">❄️ Cold<span>Trust</span></div><nav id="nav"></nav>
+<div class="me"><div id="who"></div><a onclick="logout()" style="padding:6px 0;color:#f2b8b8">Sign out</a></div></aside>
+<main><div class="top"><h2 id="title"></h2><span class="pill" id="clock"></span><span class="pill" id="mode"></span></div><div id="view"></div></main></div>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let TOK=sessionStorage.tk||'',ME=null,PAGE='monitor',SEL=null,CH=[],timer;
+const PAGES={monitor:['🌡️','Live Monitor'],alerts:['🔔','Alerts'],lots:['📜','Lots & Certificates'],maint:['🛠️','Maintenance'],insights:['🧠','Model Performance'],apps:['📥','Job Applications'],sugs:['💬','Suggestions'],admin:['⚙️','Admin']};
+const ROLEPAGES={technician:['monitor','alerts','maint'],accountant:['lots'],farmer:[],viewer:['monitor','alerts','lots','insights']};
+async function api(p,o={}){const r=await fetch(p,{...o,headers:{'content-type':'application/json',...(TOK?{Authorization:'Bearer '+TOK}:{}),...o.headers}});
+ if(r.status===401&&TOK){logout();throw 0}if(!r.ok){let m=r.statusText;try{m=(await r.json()).detail||m}catch{}throw new Error(typeof m=='string'?m:JSON.stringify(m))}
+ return r.headers.get('content-type')?.includes('json')?r.json():r}
+const post=(p,b)=>api(p,{method:'POST',body:JSON.stringify(b||{})});
+function toast(m){const t=$('#toast');t.textContent=m;t.className='on';setTimeout(()=>t.className='',2600)}
+async function doLogin(e){e.preventDefault();try{const r=await fetch('/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({username:$('#u').value,password:$('#p').value})});
+ if(!r.ok)throw 0;const d=await r.json();TOK=sessionStorage.tk=d.token;start()}catch{$('#err').textContent='Wrong username or password'}return false}
+function logout(){try{fetch('/auth/logout',{method:'POST',headers:{Authorization:'Bearer '+TOK}})}catch{}sessionStorage.removeItem('tk');TOK='';clearInterval(timer);$('#app').classList.add('hide');$('#login').classList.remove('hide')}
+async function start(){try{ME=await api('/auth/me')}catch{return}
+ $('#login').classList.add('hide');$('#app').classList.remove('hide');$('#who').innerHTML=`${ME.role=='owner'?'<img class="mav" src="/site-assets/tarun.webp" alt="">':''}<b>${esc(ME.username)}</b><br><span class="mu">${esc(ME.role)}</span>`;
+ const ok=ME.role=='owner'||ME.role=='manager'||ME.role=='site_manager'?Object.keys(PAGES).filter(k=>(k!='admin'||ME.role=='owner')&&(!['apps','sugs'].includes(k)||isHQ())):(ROLEPAGES[ME.role]||[]);
+ $('#nav').innerHTML=ok.map(k=>`<a id="n-${k}" onclick="go('${k}')">${PAGES[k][0]} ${PAGES[k][1]}${k=='alerts'?'<span class="badge hide" id="ab"></span>':''}${k=='apps'?'<span class="badge hide" id="ba"></span>':''}${k=='sugs'?'<span class="badge hide" id="bs"></span>':''}</a>`).join('');
+ api('/health').then(h=>$('#mode').textContent=(h.sim?'Simulator':'Live sensors')+' · '+h.notify_mode+' alerts').catch(()=>{});
+ if(!ok.length){$('#view').innerHTML='<div class="card">Farmers: please use the private link sent on WhatsApp.</div>';return}
+ go(ok.includes(PAGE)?PAGE:ok[0]);clearInterval(timer);timer=setInterval(()=>render(true),3000)}
+function go(p){PAGE=p;document.querySelector('main').dataset.p=p;document.querySelectorAll('aside a').forEach(a=>a.classList.toggle('on',a.id=='n-'+p));$('#title').textContent=PAGES[p].join(' ');render()}
+async function render(quiet){try{await R[PAGE](quiet);const a=await api('/alerts?limit=50').catch(()=>[]),n=a.filter(x=>!x.resolved_ts).length,b=$('#ab');if(b){b.textContent=n;b.classList.toggle('hide',!n)}await badges()}catch(e){if(e&&!quiet)$('#view').innerHTML=`<div class="card">⚠ ${esc(e.message)}</div>`}}
+const isHQ=()=>ME&&(ME.role=='owner'||ME.role=='manager');
+let AF='',SF='';const AST=['new','shortlisted','interview','hired','rejected'],SST=['new','reviewed','done'];
+const opts=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
+const lnk=u=>/^https?:\/\//i.test(u||'')?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`:esc(u);
+async function badges(){if(!isHQ())return;for(const[u,id]of[['/careers/applications/summary','ba'],['/suggestions/summary','bs']]){try{const s=await api(u),b=$('#'+id);if(b){b.textContent=s.new||0;b.classList.toggle('hide',!s.new)}}catch{}}}
+async function saveSt(path,id,k){try{await post(`${path}/${id}/status`,{status:$('#s'+k+id).value,note:$('#n'+k+id).value});toast('Saved ✓');render()}catch(e){toast(e.message)}}
+const ctl=(path,k,x,L)=>`<select id="s${k}${x.id}" style="margin-bottom:6px">${opts(L,x.status)}</select><input id="n${k}${x.id}" placeholder="Internal note" maxlength="500" value="${esc(x.note||'')}"><button class="btn sm" onclick="saveSt('${path}',${x.id},'${k}')">Save</button>${x.updated_by?`<div class="mu sm" style="margin-top:4px">by ${esc(x.updated_by)}</div>`:''}`;
+const kpis=(s,L)=>`<div class="grid g4">${['total',...L].map(k=>`<div class="card kpi"><div class="t">${k}</div><div class="v">${s[k]||0}</div></div>`).join('')}</div>`;
+const flt=(L,v,js)=>`<div class="row" style="margin:14px 0"><span class="sm mu">Filter:</span><select style="width:auto;margin:0" onchange="${js}=this.value;render()"><option value="">all</option>${opts(L,v)}</select></div>`;
+const fmt=ts=>new Date(ts*1000).toLocaleString([], {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+const lvl=c=>!c.online?'OFF':(c.latest?.level||'OK');
+function chart(rows,c){if(!rows.length)return'<p class="mu">No data yet</p>';const W=760,H=250,P=34,T=rows.map(r=>r.temp), lo=Math.min(...T,c.temp_min)-.5,hi=Math.max(...T,c.temp_max)+.5,x=i=>P+i*(W-P-8)/Math.max(1,rows.length-1),y=v=>H-24-(v-lo)/(hi-lo)*(H-40);
+ const up=c.latest?.upper,bs=c.latest?.baseline,band=up&&bs?`<rect x="${P}" y="${y(up)}" width="${W-P-8}" height="${Math.max(3,y(2*bs-up)-y(up))}" fill="var(--ok)" opacity=".14"/>`:'';
+ const pts=rows.map((r,i)=>`${x(i).toFixed(1)},${y(r.temp).toFixed(1)}`).join(' ');
+ const dots=rows.map((r,i)=>r.level&&r.level!='OK'?`<circle cx="${x(i)}" cy="${y(r.temp)}" r="2.5" fill="${r.level=='CRITICAL'?'var(--cr)':r.level=='WARNING'?'var(--wr)':'var(--w)'}"/>`:'').join('');
+ const gl=[0,1,2,3].map(k=>{const v=lo+(hi-lo)*k/3;return`<line x1="${P}" x2="${W-8}" y1="${y(v)}" y2="${y(v)}" stroke="var(--bd)"/><text x="2" y="${y(v)+3}">${v.toFixed(1)}°</text>`}).join('');
+ return`<svg viewBox="0 0 ${W} ${H}" width="100%">${gl}${band}<line x1="${P}" x2="${W-8}" y1="${y(c.temp_max)}" y2="${y(c.temp_max)}" stroke="var(--cr)" stroke-dasharray="5 4"/><text x="${P+6}" y="${y(c.temp_max)-4}">limit ${c.temp_max}°C</text>
+ <polyline points="${pts}" fill="none" stroke="var(--g7)" stroke-width="2.2" stroke-linejoin="round"/>${dots}<text x="${P}" y="${H-6}">${fmt(rows[0].ts)}</text><text x="${W-80}" y="${H-6}">${fmt(rows.at(-1).ts)}</text></svg>`}
+function spark(rows,c){if(rows.length<2)return'';const W=200,H=44,T=rows.map(r=>r.temp),lo=Math.min(...T),hi=Math.max(...T,lo+.5);return`<svg viewBox="0 0 ${W} ${H}" width="100%"><polyline fill="none" stroke="var(--g7)" stroke-width="2" points="${rows.map((r,i)=>`${i*W/(rows.length-1)},${H-3-(r.temp-lo)/(hi-lo)*(H-6)}`).join(' ')}"/></svg>`}
+const R={
+async monitor(){const[ch,sim]=await Promise.all([api('/chambers'),api('/sim/status').catch(()=>null)]);CH=ch;if(!SEL||!ch.find(c=>c.id==SEL))SEL=ch[0]?.id;
+ const all=await Promise.all(ch.map(c=>api(`/chambers/${c.id}/readings?minutes=180`).catch(()=>[])));const c=ch.find(x=>x.id==SEL),rows=all[ch.indexOf(c)]||[];
+ const sp=c?await api(`/chambers/${c.id}/spoilage`).catch(()=>null):null,L=c?.latest||{};
+ const crit=ch.filter(x=>['WARNING','CRITICAL'].includes(lvl(x))).length;
+ let h=`<div class="grid g4" style="margin-bottom:16px"><div class="card kpi"><div class="t">Chambers</div><div class="v">${ch.length}</div></div><div class="card kpi"><div class="t">Online</div><div class="v">${ch.filter(x=>x.online).length}/${ch.length}</div></div><div class="card kpi"><div class="t">Need attention</div><div class="v" style="color:${crit?'var(--cr)':'var(--ok)'}">${crit}</div></div><div class="card kpi"><div class="t">Avg temp</div><div class="v">${(ch.reduce((a,x)=>a+(x.latest?.temp||0),0)/Math.max(1,ch.length)).toFixed(1)}°C</div></div></div>`;
+ h+=`<div class="grid g3">`+ch.map((x,i)=>`<div class="card chcard L-${lvl(x)} ${x.id==SEL?'sel':''}" onclick="SEL=${x.id};render()"><div class="row" style="justify-content:space-between"><b>${esc(x.name)}</b><span class="lv ${lvl(x)}">${x.online?lvl(x):'OFFLINE'}</span></div><div class="mu sm">${esc(x.crop)}</div><div class="big">${x.latest?x.latest.temp.toFixed(1):'--'}°C</div>${spark(all[i].slice(-60),x)}<div class="mu sm">Humidity ${x.latest?.humidity??'--'}% · Door ${x.latest?.door?'OPEN':'closed'} · Compressor ${x.latest?.comp?'ON':'off'}</div></div>`).join('')+`</div>`;
+ if(c)h+=`<div class="card" style="margin-top:16px"><div class="row" style="justify-content:space-between"><b>${esc(c.name)} · last 3 hours</b><span class="mu sm">green band = learned normal · red line = limit · dots = alerts</span></div>${chart(rows,c)}
+ ${L.message_hi?`<div class="msg">🇮🇳 ${esc(L.message_hi)}<br><span class="mu">${esc(L.message_en)}</span></div>`:''}
+ <div class="row sm mu" style="margin-top:8px"><span>Set-point ${c.setpoint}°C</span><span>·</span><span>Run hours ${c.run_hours}</span>${L.eta_min&&L.eta_min<240?`<span>· <b style="color:var(--wr)">~${Math.round(L.eta_min)} min to limit</b></span>`:''}${sp?`<span>· Spoilage risk <b>${Math.round(sp.score)}/100 (${sp.level})</b></span>`:''}</div>
+ ${ME.role=='owner'&&sim?.enabled?`<div class="row" style="margin-top:12px"><span class="sm mu">Simulate fault:</span>${sim.available.map(s=>`<button class="btn sm ${s=='reset'?'alt':'gold'}" onclick="scen(${c.id},'${s}')">${s=='reset'?'Fix / reset':s.replace(/_/g,' ')}</button>`).join('')}<button class="btn sm alt" onclick="off(${c.id},${!sim.offline.includes(c.id)})">${sim.offline.includes(c.id)?'Plug sensor':'Unplug sensor'}</button></div>`:''}</div>`;
+ $('#view').innerHTML=h},
+async alerts(){const[a,n]=await Promise.all([api('/alerts?limit=40'),api('/notifications?limit=40')]);
+ $('#view').innerHTML=`<div class="card"><b>Alerts</b><div class="tw"><table><tr><th>Time</th><th>Level</th><th>Chamber</th><th>Message</th><th>Status</th></tr>${a.map(x=>`<tr><td>${fmt(x.ts)}</td><td><span class="lv ${x.level}">${x.level}</span></td><td>#${x.chamber_id}</td><td>${esc(x.message_hi)}<br><span class="mu sm">${esc(x.message_en)}</span></td><td>${x.resolved_ts?'<span class="mu">Resolved</span>':x.acked_by?`Acked by ${esc(x.acked_by)}`:`<button class="btn sm" onclick="ack(${x.id})">Acknowledge</button>`}</td></tr>`).join('')||'<tr><td colspan=5 class=mu>No alerts 🎉</td></tr>'}</table></div></div>
+ <div class="card" style="margin-top:16px"><b>Notifications sent</b><div class="tw"><table><tr><th>Time</th><th>Channel</th><th>To</th><th>Message</th><th>Status</th></tr>${n.map(x=>`<tr><td>${fmt(x.ts)}</td><td>${{whatsapp:'💬',sms:'✉️',voice:'📞'}[x.channel]||''} ${esc(x.channel)}</td><td>${esc(x.to_name)}<br><span class="mu sm">${esc(x.to_phone)}</span></td><td class="sm">${esc(x.message)}</td><td>${esc(x.status)}${x.mode=='mock'?' <span class="mu sm">(mock)</span>':''}</td></tr>`).join('')||'<tr><td colspan=5 class=mu>None yet</td></tr>'}</table></div></div>`},
+async lots(q){if(q&&document.activeElement?.closest('#lotform'))return;const[l,ch]=await Promise.all([api('/lots'),api('/chambers')]);
+ $('#view').innerHTML=`<div class="card" id="lotform"><b>Register a lot</b><div class="row" style="margin-top:8px"><select id="lc" style="width:auto">${ch.map(c=>`<option value=${c.id}>${esc(c.name)}</option>`).join('')}</select><input id="ln" placeholder="Farmer name" style="width:180px"><input id="lp" placeholder="Phone" style="width:150px"><input id="lb" type="number" placeholder="Bags" style="width:100px"><button class="btn" onclick="addLot()" style="margin-bottom:10px">Add lot</button></div></div>
+ <div class="card" style="margin-top:16px"><div class="tw"><table><tr><th>Lot</th><th>Farmer</th><th>Chamber</th><th>Bags</th><th>Loaded</th><th>Actions</th></tr>${l.map(x=>`<tr><td>#${x.id}</td><td>${esc(x.farmer_name)}<br><span class="mu sm">${esc(x.farmer_phone)}</span></td><td>${esc(x.chamber_name)}</td><td>${x.bags}</td><td>${fmt(x.loaded_ts)}${x.withdrawn_ts?'<br><span class="mu sm">withdrawn</span>':''}</td><td><div class="row"><button class="btn sm alt" onclick="cert(${x.id})">📄 Certificate</button>${x.withdrawn_ts?'':`<button class="btn sm alt" onclick="fu(${x.id})">Message farmer</button><button class="btn sm red" onclick="wd(${x.id})">Withdraw</button>`}<a class="sm" target="_blank" href="/f/${x.token}">farmer page</a></div></td></tr>`).join('')}</table></div></div>`},
+async maint(){const m=await api('/maintenance');$('#view').innerHTML=`<div class="card"><div class="tw"><table><tr><th>Chamber</th><th>Task</th><th>Remaining</th><th>Status</th><th></th></tr>${m.map(x=>`<tr><td>${esc(x.chamber_name)}</td><td>${esc(x.task)}</td><td>${x.run_hours_left!=null?x.run_hours_left.toFixed(0)+' run-hours':x.days_left!=null?x.days_left.toFixed(0)+' days':'-'}</td><td><span class="lv ${x.due?'WARNING':''}">${x.due?'DUE':'OK'}</span></td><td><button class="btn sm alt" onclick="mdone(${x.id})">Mark done</button></td></tr>`).join('')}</table></div></div>`},
+async insights(){const e=await api('/evaluation');const s=e.scenarios;$('#view').innerHTML=`<div class="grid g4" style="margin-bottom:16px"><div class="card kpi"><div class="t">False alarms / chamber-week</div><div class="v">${e.false_alarms_per_chamber_week}</div></div><div class="card kpi"><div class="t">Chamber-days tested</div><div class="v">${e.chamber_days}</div></div><div class="card kpi"><div class="t">Faults detected</div><div class="v">${Object.values(s).reduce((a,x)=>a+x.detected,0)}/${Object.values(s).reduce((a,x)=>a+x.runs,0)}</div></div></div>
+ <div class="card"><b>Early-warning lead time vs a fixed alarm (minutes)</b><div class="tw"><table><tr><th>Fault</th><th>Detected</th><th>Watch earlier</th><th>Warning earlier</th><th>Critical earlier</th></tr>${Object.entries(s).map(([k,x])=>`<tr><td>${k.replace(/_/g,' ')}</td><td>${x.detected}/${x.runs}</td><td>${x.watch_lead_min.toFixed(0)}</td><td>${x.warning_lead_min.toFixed(0)}</td><td>${x.critical_lead_min.toFixed(0)}</td></tr>`).join('')}</table></div><p class="mu sm">Measured on simulated data — shows the logic works, not real-chamber performance.</p></div>`},
+async apps(q){if(q)return;const[l,s]=await Promise.all([api('/careers/applications'+(AF?'?status='+AF:'')),api('/careers/applications/summary')]);
+ $('#view').innerHTML=kpis(s,AST)+flt(AST,AF,'AF')+`<div class="card"><div class="tw"><table><tr><th>#</th><th>Role</th><th>Applicant</th><th>Message</th><th>Status</th></tr>${l.map(x=>`<tr><td>#${x.id}<br><span class="mu sm">${fmt(x.ts)}</span></td><td><b>${esc(x.job_title)}</b><br><span class="mu sm">${esc(x.department)}</span></td><td>${esc(x.name)}<br><span class="sm">${esc(x.phone)}<br>${esc(x.email)}</span><br><span class="mu sm">${esc(x.org)}</span><br><span class="sm">${lnk(x.link)}</span></td><td class="sm" style="max-width:320px">${esc(x.message)}</td><td style="min-width:190px">${ctl('/careers/applications','a',x,AST)}</td></tr>`).join('')||'<tr><td colspan=5 class=mu>No applications yet</td></tr>'}</table></div></div>`},
+async sugs(q){if(q)return;const[l,s]=await Promise.all([api('/suggestions'+(SF?'?status='+SF:'')),api('/suggestions/summary')]);
+ $('#view').innerHTML=kpis(s,SST)+flt(SST,SF,'SF')+`<div class="card"><div class="tw"><table><tr><th>#</th><th>From</th><th>Message</th><th>Status</th></tr>${l.map(x=>`<tr><td>#${x.id}<br><span class="mu sm">${fmt(x.ts)}</span></td><td>${esc(x.name)||'<span class=mu>anonymous</span>'}<br><span class="sm">${esc(x.contact)}</span><br><span class="mu sm">${esc(x.kind)}${x.topic?' · '+esc(x.topic):''}</span></td><td class="sm" style="max-width:380px">${esc(x.message)}</td><td style="min-width:190px">${ctl('/suggestions','s',x,SST)}</td></tr>`).join('')||'<tr><td colspan=4 class=mu>No suggestions yet</td></tr>'}</table></div></div>`},
+async admin(){const[u,s]=await Promise.all([api('/users'),api('/sites')]);$('#view').innerHTML=`<div class="card"><b>Sites</b><div class="tw"><table><tr><th>Site</th><th>Location</th><th>Chambers</th><th>Worst level</th></tr>${s.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.location)}</td><td>${x.chambers.length}</td><td><span class="lv ${x.worst_level}">${x.worst_level}</span></td></tr>`).join('')}</table></div></div>
+ <div class="card" style="margin-top:16px"><b>Users</b><div class="tw"><table><tr><th>User</th><th>Role</th></tr>${u.map(x=>`<tr><td>${esc(x.username)}</td><td>${esc(x.role)}</td></tr>`).join('')}</table></div></div>`}};
+const act=async(f,m)=>{try{await f();if(m)toast(m);render()}catch(e){toast('⚠ '+e.message)}};
+const scen=(c,s)=>act(()=>post('/sim/scenario',{chamber_id:c,scenario:s}),'Done'),off=(c,o)=>act(()=>post('/sim/offline',{chamber_id:c,offline:o}));
+const ack=id=>act(()=>post(`/alerts/${id}/ack`,{who:ME.username}),'Acknowledged'),mdone=id=>act(()=>post(`/maintenance/${id}/done`),'Marked done');
+const wd=id=>confirm('Withdraw this lot?')&&act(()=>post(`/lots/${id}/withdraw`),'Lot withdrawn'),fu=id=>act(async()=>{const r=await post(`/lots/${id}/farmer-update`);alert(r.message)});
+const addLot=()=>act(()=>post('/lots',{chamber_id:+$('#lc').value,farmer_name:$('#ln').value,farmer_phone:$('#lp').value,bags:+$('#lb').value}),'Lot added');
+const cert=id=>act(async()=>{const r=await api(`/lots/${id}/certificate`),b=await r.blob();window.open(URL.createObjectURL(b))});
+setInterval(()=>{$('#clock').textContent=new Date().toLocaleTimeString()},1000);if(TOK)start();
+</script></body></html>

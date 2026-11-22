@@ -1,0 +1,13 @@
+services:
+  coldtrust:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      COLDTRUST_DB: /data/coldtrust.db
+      PUBLIC_URL: http://localhost:8000
+      OWNER_PASSWORD: ${OWNER_PASSWORD:-}
+      MANAGER_PASSWORD: ${MANAGER_PASSWORD:-}
+      DEVICE_KEY: ${DEVICE_KEY:-demo-device-key}
+    volumes: ["coldtrust-data:/data"]
+volumes:
+  coldtrust-data:

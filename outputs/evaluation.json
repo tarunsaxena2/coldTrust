@@ -1,0 +1,43 @@
+{
+  "false_alarm_episodes": 1,
+  "chamber_days": 42,
+  "false_alarms_per_chamber_week": 0.167,
+  "scenarios": {
+    "compressor_trip": {
+      "runs": 12,
+      "detected": 12,
+      "fixed_threshold_minute": 36.416666666666664,
+      "watch_lead_min": 18.833333333333332,
+      "warning_lead_min": 13.916666666666666,
+      "critical_lead_min": 10.333333333333334,
+      "critical_lead_min_worst": 4.0
+    },
+    "power_cut": {
+      "runs": 12,
+      "detected": 12,
+      "fixed_threshold_minute": 24.166666666666668,
+      "watch_lead_min": 12.416666666666666,
+      "warning_lead_min": 10.333333333333334,
+      "critical_lead_min": 9.833333333333334,
+      "critical_lead_min_worst": 2.0
+    },
+    "door_left_open": {
+      "runs": 12,
+      "detected": 12,
+      "fixed_threshold_minute": 23.166666666666668,
+      "watch_lead_min": 15.166666666666666,
+      "warning_lead_min": 11.166666666666666,
+      "critical_lead_min": 5.333333333333333,
+      "critical_lead_min_worst": 1.0
+    },
+    "cooling_degradation": {
+      "runs": 12,
+      "detected": 12,
+      "fixed_threshold_minute": 75.16666666666667,
+      "watch_lead_min": 20.833333333333332,
+      "warning_lead_min": 17.416666666666668,
+      "critical_lead_min": 10.083333333333334,
+      "critical_lead_min_worst": 4.0
+    }
+  }
+}

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Careers · ColdTrust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#faf8f1;--surf:#fff;--soft:#eef5e9;--line:#d9e6d3;--ink:#1c2b33;--mute:#5b6b75;--g1:#14532d;--g2:#1f6f3d;--gold:#e8a317;--hdr:rgba(250,248,241,.94)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Mukta,system-ui,sans-serif;font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--hdr);z-index:60}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+h1,h2,h3{line-height:1.15;margin:0;color:var(--g1);letter-spacing:-.01em}
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--hdr);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:25px;color:var(--g1)}
+.logo small{display:block;font-size:12px;font-weight:600;color:var(--mute);margin-top:-4px}
+.logo i{font-style:normal;font-size:32px}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:6px;align-items:center}
+nav li{position:relative}
+nav li>a,nav li>button{font:inherit;font-weight:600;background:none;border:0;color:var(--ink);padding:10px 14px;border-radius:10px;cursor:pointer;display:flex;gap:6px;align-items:center}
+nav li>a:hover,nav li>button:hover{background:var(--soft)}
+.dd{position:absolute;top:100%;left:0;min-width:230px;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:0 12px 30px #0002;display:none}
+.dd a{display:block;padding:9px 12px;border-radius:9px;font-weight:600}
+.dd a:hover{background:var(--soft)}
+nav li:hover>.dd,nav li:focus-within>.dd,nav li.open>.dd{display:block}
+.cta{background:var(--g2);color:#fff!important;border-radius:999px!important;padding:10px 20px!important}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;font-size:22px;padding:4px 10px;color:var(--ink)}
+@media(max-width:900px){.burger{display:block}nav{display:none;position:absolute;top:74px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 22px 18px}nav.show{display:block}nav ul{flex-direction:column;align-items:stretch}.dd{position:static;box-shadow:none;border:0;padding:0 0 0 12px}nav li:hover>.dd{display:none}nav li.open>.dd{display:block}}
+/* hero carousel */
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#14532d,#1f6f3d 60%,#4c9a52);color:#fff}
+.slides{display:flex;transition:transform .6s ease}
+.slide{min-width:100%;padding:70px 0 90px}
+.slide .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.slide h1{color:#fff;font-size:clamp(34px,5vw,60px);font-weight:800}
+.slide .hi{font-size:clamp(19px,2.4vw,26px);color:#ffe08a;font-weight:600;margin:8px 0 6px}
+.slide p{max-width:520px;opacity:.93;margin:0 0 22px}
+.btn{display:inline-block;background:#fff;color:var(--g1);font-weight:800;border-radius:999px;padding:12px 26px}
+.btn.alt{background:transparent;border:2px solid #ffffff90;color:#fff;margin-left:8px}
+.shot{position:relative;margin:0}
+.shot img{display:block;width:100%;aspect-ratio:16/11;object-fit:cover;border-radius:24px;border:4px solid #ffffff55;box-shadow:0 18px 40px #0005}
+.shot span{position:absolute;left:-12px;bottom:-14px;width:62px;height:62px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 6px 16px #0004}
+.art{font-size:clamp(90px,16vw,190px);line-height:1;text-align:center;filter:drop-shadow(0 12px 18px #0004)}
+.art small{display:block;font-size:34px;letter-spacing:10px;margin-top:10px}
+.slide .shot{max-width:520px;justify-self:center;width:100%}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);background:#ffffff26;border:1px solid #ffffff50;color:#fff;width:46px;height:46px;border-radius:50%;font-size:22px;cursor:pointer}
+.arrow.l{left:14px}.arrow.r{right:14px}
+.dots{position:absolute;bottom:26px;left:0;right:0;display:flex;gap:9px;justify-content:center}
+.dots button{width:11px;height:11px;border-radius:50%;border:0;background:#ffffff60;cursor:pointer;padding:0}
+.dots button.on{background:#ffe08a;width:30px;border-radius:9px}
+@media(max-width:760px){.slide .wrap{grid-template-columns:1fr;text-align:center}.slide p{margin-inline:auto}.arrow{display:none}.art{order:-1;font-size:96px}.slide .shot{order:-1;max-width:420px}.shot span{left:8px}}
+/* sections */
+section{padding:76px 0}
+.head{text-align:center;max-width:680px;margin:0 auto 42px}
+.head h2{font-size:clamp(28px,3.6vw,42px)}.head p{color:var(--mute);margin:10px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center}
+.stat i{font-style:normal;font-size:38px}.stat b{display:block;font-size:34px;color:var(--g1);font-weight:800;line-height:1.1;margin-top:4px}.stat span{color:var(--mute);font-size:15px}
+@media(max-width:820px){.stats{grid-template-columns:1fr 1fr}}
+.alt-bg{background:var(--soft)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-bottom:56px}
+.row:last-child{margin-bottom:0}
+.row.flip .pic{order:2}
+.pic{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:26px;min-height:260px;overflow:hidden;box-shadow:0 8px 24px #14532d18}
+.pic img{display:block;width:100%;height:100%;min-height:260px;object-fit:cover}
+.pic span{position:absolute;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 12px #0003}
+.row .tag{color:var(--g2);font-weight:800;font-size:15px}
+.row h3{font-size:30px;margin:4px 0 10px}.row p{color:var(--mute);margin:0 0 14px}
+.row a.more{font-weight:800;color:var(--g2);border-bottom:2px solid var(--gold)}
+@media(max-width:780px){.row{grid-template-columns:1fr}.row.flip .pic{order:0}}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card i{font-style:normal;font-size:30px;display:inline-flex;width:54px;height:54px;border-radius:16px;background:var(--soft);align-items:center;justify-content:center;margin-bottom:10px}
+.card h3{font-size:20px;margin-bottom:6px}.card p{margin:0;color:var(--mute);font-size:15.5px}
+@media(max-width:860px){.grid3{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid3{grid-template-columns:1fr}}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:980px){.grid4{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid4{grid-template-columns:1fr}}
+.person{text-align:center}
+.av{width:78px;height:78px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-weight:800;font-size:25px;display:flex;align-items:center;justify-content:center;border:4px solid var(--soft);box-shadow:0 0 0 2px var(--gold)}
+.person .role{display:block;color:var(--g2);margin-bottom:8px;font-size:15px}
+.roles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.roles span{background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-weight:600}
+.crops{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.crops span{width:54px;height:54px;border-radius:50%;background:var(--surf);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:28px}
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media(max-width:780px){.contact{grid-template-columns:1fr}}
+form{background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:12px}
+label{font-weight:600;font-size:15px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-top:4px}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+form button{font:inherit;font-weight:800;background:var(--g2);color:#fff;border:0;border-radius:999px;padding:13px;cursor:pointer}
+#ok{display:none;background:var(--soft);border-radius:12px;padding:12px;font-weight:600}
+.info p{margin:0 0 12px}.info b{color:var(--g1)}
+footer{background:#14532d;color:#d7ecd9;padding:44px 0 26px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:26px}
+footer h4{margin:0 0 8px;color:#ffe08a}footer a{display:block;opacity:.9;padding:2px 0}footer a:hover{opacity:1;text-decoration:underline}
+footer .fine{border-top:1px solid #ffffff30;margin-top:26px;padding-top:16px;font-size:14px;opacity:.85}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
+/* floating bits */
+.wa{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 6px 16px #0004;z-index:40}
+.ck{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));max-width:420px;background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 10px 30px #0003;z-index:45}
+.ck b{font-size:18px}.ck p{margin:6px 0 12px;font-size:15px;color:var(--mute)}
+.ck button{font:inherit;font-weight:700;border-radius:8px;padding:8px 14px;border:2px solid var(--g2);background:var(--surf);color:var(--g2);cursor:pointer;margin-right:6px}
+.ck button.p{background:var(--g2);color:#fff}
+@media(max-width:560px){.ck{right:18px;max-width:none;bottom:calc(88px + env(safe-area-inset-bottom,0px))}}
+@media(prefers-reduced-motion:reduce){.slides{transition:none}html{scroll-behavior:auto}}
+
+.chero{background:linear-gradient(120deg,#14532d,#1f6f3d 60%,#4c9a52);color:#fff;padding:64px 0 70px}
+.chero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
+.chero h1{color:#fff;font-size:clamp(32px,4.6vw,54px);font-weight:800}
+.chero p{max-width:520px;opacity:.93;margin:12px 0 22px}
+.chero .shot img{aspect-ratio:16/10}
+.btn{display:inline-block;background:#fff;color:var(--g1);font-weight:800;border-radius:999px;padding:12px 26px}
+.shot{position:relative;margin:0}.shot img{display:block;width:100%;object-fit:cover;border-radius:24px;border:4px solid #ffffff55;box-shadow:0 18px 40px #0005}
+.shot span{position:absolute;left:-12px;bottom:-14px;width:60px;height:60px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 6px 16px #0004}
+@media(max-width:780px){.chero .wrap{grid-template-columns:1fr}.chero .shot{order:-1;max-width:440px}}
+.row .pic img{display:block;width:100%;height:100%;min-height:260px;object-fit:cover}
+.pic{position:relative;overflow:hidden;background:var(--surf);border:1px solid var(--line);border-radius:26px;min-height:260px;box-shadow:0 8px 24px #14532d18}
+.pic span{position:absolute;right:14px;bottom:14px;width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 12px #0003}
+.filters{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:12px;margin-bottom:12px}
+@media(max-width:700px){.filters{grid-template-columns:1fr}}
+.filters select,.filters input{margin:0}
+.count{font-weight:800;color:var(--g1);margin:6px 0 16px}
+.job{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-bottom:14px}
+.job .dept{font-size:14px;font-weight:800;color:var(--g2)}
+.job h3{font-size:22px;margin:2px 0 8px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.meta span{background:var(--soft);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:600}
+.job p{margin:0 0 12px;color:var(--mute)}
+.job details{margin:0 0 14px}.job summary{cursor:pointer;font-weight:800;color:var(--g2)}
+.job ul{margin:8px 0 0;padding-left:20px;color:var(--mute)}
+.acts{display:flex;gap:10px;flex-wrap:wrap}
+.acts a{font-weight:800;border-radius:999px;padding:9px 22px;border:2px solid var(--g2)}
+.acts a.p{background:var(--g2);color:#fff}
+.empty{text-align:center;color:var(--mute);padding:30px}
+.acts button{font:inherit;font-weight:800;border-radius:999px;padding:9px 22px;border:2px solid var(--g2);background:var(--g2);color:#fff;cursor:pointer}
+dialog{border:0;border-radius:20px;padding:0;max-width:520px;width:calc(100% - 28px);box-shadow:0 20px 60px #0006;color:var(--ink);background:var(--surf)}
+dialog::backdrop{background:#0008}
+.dlg{padding:24px;display:grid;gap:11px}
+.dlg h3{font-size:22px}.dlg .for{color:var(--mute);margin:-6px 0 4px}
+.dlg .x{position:absolute;right:14px;top:10px;background:none;border:0;font-size:26px;cursor:pointer;color:var(--mute)}
+.dlg .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:480px){.dlg .two{grid-template-columns:1fr}}
+.dlg .go{font:inherit;font-weight:800;background:var(--g2);color:#fff;border:0;border-radius:999px;padding:13px;cursor:pointer}
+.dlg .go[disabled]{opacity:.6;cursor:wait}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+#amsg,#smsg{border-radius:12px;padding:11px 14px;font-weight:600;display:none}
+#amsg.ok,#smsg.ok{display:block;background:var(--soft);color:var(--g1)}#amsg.err,#smsg.err{display:block;background:#fdecea;color:#a12622}
+.fraud{background:#fff7e0;border:1px solid #f0d58a;border-radius:14px;padding:14px 18px;margin-top:26px;font-size:15px}
+.cstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.cstrip img{width:100%;height:170px;object-fit:cover;border-radius:16px;box-shadow:0 6px 18px #0f3d2420;transition:transform .3s}.cstrip img:hover{transform:translateY(-4px)}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="/#top"><i>🌾</i><span>ColdTrust<small>किसान का भरोसा</small></span></a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  <nav id="nav" aria-label="Main">
+   <ul>
+    <li><a href="/#about">About Us</a></li>
+    <li><a href="/#team">Team</a></li>
+    <li><button type="button" aria-haspopup="true">Products <span>▾</span></button>
+     <div class="dd"><a href="/#products">ColdTrust Monitor</a><a href="/#products">Farmer Lot Certificate</a><a href="/#products">Hindi Alert Engine</a><a href="/#products">ESP32 Sensor Node</a></div></li>
+    <li><button type="button" aria-haspopup="true">Technology <span>▾</span></button>
+     <div class="dd"><a href="/#technology">AI Anomaly Detection</a><a href="/#technology">Spoilage Estimation</a><a href="/#technology">Tamper-evident Audit Chain</a><a href="/#technology">Role-based Access</a></div></li>
+    <li><a href="/#resources">Resources</a></li>
+    <li><a href="/careers" aria-current="page" style="background:var(--soft)">Careers</a></li>
+    <li><a href="/#contact">Contact Us</a></li>
+    <li><a class="cta" href="__DASHBOARD_URL__">🔑 Dashboard Login</a></li>
+   </ul>
+  </nav>
+ </div>
+</header>
+<main id="top">
+<div class="chero"><div class="wrap"><div><h1>Build technology that keeps harvests fresh</h1><p>Want your work to matter to farmers and storage owners? Join a young team working on IoT, AI and Hindi-first software for cold storage.</p><a class="btn" href="#jobs">See open roles</a></div>
+<figure class="shot"><img src="/site-assets/farm.webp" alt="Rows of young crops in a field at sunset" width="800" height="500"><span aria-hidden="true">🌾</span></figure></div></div>
+
+<section><div class="wrap">
+ <div class="head"><h2>Why work with us</h2><p>Small team, real problems, real farms.</p></div>
+ <div class="row "><div class="pic"><img src="/site-assets/iot.webp" alt="" loading="lazy"><span aria-hidden="true">🛠️</span></div><div><div class="tag">Varied work</div><h3>Work that is diverse and hands-on</h3><p>One week you may wire an ESP32 sensor node, the next you tune the anomaly model, write a Hindi alert or visit a cold room. Everyone touches the whole product.</p></div></div>
+ <div class="row flip"><div class="pic"><img src="/site-assets/farm.webp" alt="" loading="lazy"><span aria-hidden="true">🌱</span></div><div><div class="tag">Young and green</div><h3>A culture where every idea is heard</h3><p>Doors are open for every kind of idea. We hold a short weekly catch-up where each person shares what they built and what is blocking them.</p></div></div>
+ <div class="row "><div class="pic"><img src="/site-assets/solar.webp" alt="" loading="lazy"><span aria-hidden="true">☕</span></div><div><div class="tag">Friendly</div><h3>A friendly place to learn fast</h3><p>We learn by building and by visiting farms and cold rooms. Mistakes are fine if we share what we learned, ideally over a cup of chai.</p></div></div>
+</div></section>
+
+<section><div class="wrap"><div class="cstrip"><img src="/site-assets/team.webp" alt="" loading="lazy"><img src="/site-assets/coldroom.webp" alt="" loading="lazy"><img src="/site-assets/worker.webp" alt="" loading="lazy"><img src="/site-assets/solarstorage.webp" alt="" loading="lazy"></div></div></section>
+<section class="alt-bg"><div class="wrap">
+ <div class="head"><h2>What we value</h2></div>
+ <div class="grid4">
+  <div class="card person"><div class="av">🌾</div><h3>Farmer first</h3><p>Every feature must help a farmer or storage owner.</p></div>
+  <div class="card person"><div class="av">🔍</div><h3>Honest data</h3><p>We say what is simulated and what is measured.</p></div>
+  <div class="card person"><div class="av">🗣️</div><h3>Hindi first</h3><p>If a farmer cannot read it, it is not finished.</p></div>
+  <div class="card person"><div class="av">🚀</div><h3>Ship small</h3><p>Small working steps beat big plans.</p></div>
+ </div>
+</div></section>
+
+<section id="jobs"><div class="wrap">
+ <div class="head"><h2>Join us</h2><p>View our open roles. Don’t see yours? Tell us in the <a href="#suggest" style="color:var(--g2);font-weight:800">suggestion box</a> or email your CV.</p></div>
+ <div class="filters"><select id="fd" aria-label="Department"></select><select id="fl" aria-label="Location"></select><input id="fq" type="search" placeholder="Search jobs" aria-label="Search jobs"></div>
+ <div class="count" id="count" role="status"></div>
+ <div id="list"></div>
+ <div class="fraud"><b>Fraud alert:</b> ColdTrust never asks job seekers for any fee or deposit, or for bank details, during hiring. Report suspicious messages to <a href="mailto:tarunsaxena923@gmail.com" style="color:var(--g2);font-weight:800">tarunsaxena923@gmail.com</a>.</div>
+</div></section>
+<section id="suggest" class="alt-bg"><div class="wrap">
+ <div class="head"><h2>Suggestion box</h2><p>Have an idea, feedback or a complaint? Tell us. Our owners and managers read every message.</p></div>
+ <form id="sform" style="max-width:640px;margin:0 auto">
+  <label>Your name (optional)<input name="name" maxlength="80" autocomplete="name"></label>
+  <label>Phone or email (optional, if you want a reply)<input name="contact" maxlength="120"></label>
+  <label>About<select name="topic"><option>Product idea</option><option>Careers and hiring</option><option>Website</option><option>Farmer or storage owner feedback</option><option>Other</option></select></label>
+  <label>Your suggestion *<textarea name="message" rows="4" required minlength="3" maxlength="1500"></textarea></label>
+  <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <div id="smsg" role="status"></div>
+  <button type="submit" id="sgo">Send suggestion</button>
+ </form>
+</div></section>
+<dialog id="adlg" aria-labelledby="atitle"><form method="dialog" class="dlg" id="aform" style="position:relative;background:none;border:0;box-shadow:none">
+ <button type="button" class="x" id="aclose" aria-label="Close">×</button>
+ <h3 id="atitle">Apply</h3><p class="for" id="afor"></p>
+ <div class="two"><label>Full name *<input name="name" required maxlength="80" autocomplete="name"></label><label>Phone *<input name="phone" required maxlength="20" inputmode="tel" autocomplete="tel"></label></div>
+ <label>Email *<input name="email" type="email" required maxlength="120" autocomplete="email"></label>
+ <label>College / current company<input name="org" maxlength="120"></label>
+ <label>Link to CV, LinkedIn or GitHub<input name="link" maxlength="300" placeholder="https://"></label>
+ <label>Why do you want to join?<textarea name="message" rows="3" maxlength="1000"></textarea></label>
+ <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+ <div id="amsg" role="status"></div>
+ <button class="go" id="ago" type="submit">Send application</button>
+</form></dialog>
+</main>
+<footer><div class="wrap">
+ <div class="cols">
+  <div><h4>🌾 ColdTrust</h4><span>Low-cost cold-storage monitoring for farmers and agriculture.</span></div>
+  <div><h4>Products</h4><a href="/#products">Monitor</a><a href="/#products">Certificate</a><a href="/#products">Sensor node</a></div>
+  <div><h4>Company</h4><a href="/#about">About Us</a><a href="/careers">Careers</a><a href="/#contact">Contact</a><a href="mailto:tarunsaxena923@gmail.com">tarunsaxena923@gmail.com</a><a href="tel:+919259174957">+91 92591 74957</a></div>
+  <div><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div>
+ </div>
+ <div class="fine">© 2026 ColdTrust · किसान का भरोसा · A student startup project</div>
+</div></footer>
+<a class="wa" href="https://wa.me/919259174957?text=Hi%2C%20I%20am%20interested%20in%20ColdTrust." aria-label="Chat with us on WhatsApp" target="_blank" rel="noopener">💬</a>
+<div class="ck" id="ck" role="dialog" aria-label="Cookie notice" hidden>
+ <b>We value your privacy</b>
+ <p>We use cookies to improve your browsing experience and analyse traffic. You can accept all or reject non-essential cookies.</p>
+ <button type="button" data-v="custom">Customize</button><button type="button" data-v="no">Reject All</button><button type="button" class="p" data-v="yes">Accept All</button>
+</div>
+
+<script>
+(function(){
+var MAIL="tarunsaxena923@gmail.com";
+var LIVE=true;   // true when this page is served by the ColdTrust API (applications go to the dashboard)
+var JOBS=[
+{t:"Intern – IoT and Embedded (ESP32)",d:"Engineering",l:["Mathura","Agra"],ty:"Intern",x:"0-1 Years",p:"Nov 2026",s:"Help build and test our low-cost ESP32 sensor node: temperature, humidity, door and compressor-current sensing.",r:["Wire and flash sensor nodes","Test offline buffering and batch upload","Document the hardware test steps"]},
+{t:"Intern – Full-stack (Python, FastAPI, Streamlit)",d:"Software",l:["Mathura","Remote"],ty:"Intern",x:"0-1 Years",p:"Nov 2026",s:"Work on the dashboard, API and role-based access used by owners, managers and farmers.",r:["Build dashboard pages and API endpoints","Write tests with pytest","Improve the login and role screens"]},
+{t:"Machine Learning Intern – Anomaly Detection",d:"Data and AI",l:["Remote"],ty:"Intern",x:"0-2 Years",p:"Nov 2026",s:"Improve early-warning detection and spoilage estimates for cold-room faults.",r:["Evaluate the Isolation Forest model","Reduce false alarms","Add new fault scenarios to the simulator"]},
+{t:"UI / Frontend Intern",d:"Design",l:["Remote","Mathura"],ty:"Intern",x:"0-1 Years",p:"Nov 2026",s:"Design clear, mobile-friendly screens in Hindi and English for farmers and staff.",r:["Design the farmer mobile page","Improve dashboard layout","Create icons and crop illustrations"]},
+{t:"Hindi Content and Communication Intern",d:"Marketing",l:["Agra","Remote"],ty:"Intern",x:"0-1 Years",p:"Nov 2026",s:"Write simple Hindi alerts, farmer guides and social posts.",r:["Write WhatsApp and SMS alert text","Create short farmer guides","Review Hindi in the product"]},
+{t:"Field Support Executive",d:"Operations",l:["Agra","Mathura","Aligarh"],ty:"Permanent",x:"1-3 Years",p:"Nov 2026",s:"Install sensor nodes at cold rooms, train staff and support farmers.",r:["Install and commission sensors","Train storage staff","Report issues to the tech team"]},
+{t:"Sales Executive – Cold Storage",d:"Sales",l:["Agra","Aligarh"],ty:"Permanent",x:"2-4 Years",p:"Nov 2026",s:"Meet cold-storage owners, run demos and close pilot deployments.",r:["Generate and follow up leads","Run product demos","Track the sales funnel"]},
+{t:"Business Development Associate",d:"Business",l:["Mathura","Remote"],ty:"Permanent",x:"1-3 Years",p:"Nov 2026",s:"Build partnerships with farmer groups, storage owners and agri-tech programmes.",r:["Find and approach partners","Prepare pilot proposals","Support pricing and billing plans"]}];
+var $=function(i){return document.getElementById(i)};
+function opts(sel,all,vals){sel.innerHTML='<option value="">'+all+'</option>'+vals.map(function(v){return '<option>'+v+'</option>'}).join('')}
+var uniq=function(a){return a.filter(function(v,i){return a.indexOf(v)===i}).sort()};
+opts($('fd'),'All departments',uniq(JOBS.map(function(j){return j.d})));
+opts($('fl'),'All locations',uniq([].concat.apply([],JOBS.map(function(j){return j.l}))));
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function render(){
+ var d=$('fd').value,l=$('fl').value,q=$('fq').value.toLowerCase();
+ var r=JOBS.filter(function(j){return (!d||j.d===d)&&(!l||j.l.indexOf(l)>-1)&&(!q||(j.t+' '+j.s+' '+j.d).toLowerCase().indexOf(q)>-1)});
+ $('count').textContent=r.length+' open position'+(r.length===1?'':'s');
+ $('list').innerHTML=r.length?r.map(function(j){var sub=encodeURIComponent('Application: '+j.t);
+  return '<article class="job"><div class="dept">'+esc(j.d)+'</div><h3>'+esc(j.t)+'</h3><div class="meta"><span>📍 '+j.l.join(', ')+'</span><span>'+j.ty+'</span><span>'+j.x+'</span><span>Posted '+j.p+'</span></div><p>'+esc(j.s)+'</p><details><summary>View details</summary><ul>'+j.r.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></details><div class="acts">'+(LIVE?'<button type="button" class="p" data-i="'+JOBS.indexOf(j)+'">Apply now</button>':'<a class="p" href="mailto:'+MAIL+'?subject='+sub+'&body='+encodeURIComponent('Hello,\n\nI would like to apply for '+j.t+'.\n\nName:\nPhone:\nCollege / current company:\nLink to CV or GitHub:\n')+'">Apply now</a>')+'</div></article>'}).join(''):'<div class="empty">No roles match. Try another filter, or email your CV to '+MAIL+'.</div>';
+}
+var dlg=$('adlg'),cur=null,msg=$('amsg');
+$('list').onclick=function(e){var b=e.target.closest&&e.target.closest('button[data-i]');if(!b)return;cur=JOBS[+b.getAttribute('data-i')];
+ $('atitle').textContent='Apply: '+cur.t;$('afor').textContent=cur.d+' · '+cur.l.join(', ');msg.className='';msg.textContent='';$('ago').disabled=false;$('ago').textContent='Send application';
+ if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')};
+$('aclose').onclick=function(){dlg.close()};
+$('aform').onsubmit=function(e){e.preventDefault();var f=e.target,d={job_title:cur.t,department:cur.d};
+ ['name','phone','email','org','link','message','website'].forEach(function(k){d[k]=f.elements[k].value});
+ $('ago').disabled=true;$('ago').textContent='Sending...';
+ fetch('/careers/apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}})}).then(function(x){
+  if(x.ok){msg.className='ok';msg.textContent='Thank you! Your application was sent. We will contact you soon.';f.reset();$('ago').textContent='Sent';}
+  else{var det=x.j&&x.j.detail;msg.className='err';msg.textContent=typeof det==='string'?det:'Please check the form: name, a valid email and a phone number are required.';$('ago').disabled=false;$('ago').textContent='Send application'}
+ }).catch(function(){msg.className='err';msg.textContent='Could not send right now. Please email '+MAIL+' instead.';$('ago').disabled=false;$('ago').textContent='Send application'})};
+$('sform').onsubmit=function(e){e.preventDefault();var f=e.target,m=$('smsg'),b=$('sgo');
+ var d={kind:'suggestion'};['name','contact','topic','message','website'].forEach(function(k){d[k]=f.elements[k].value});
+ if(!LIVE){location.href='mailto:'+MAIL+'?subject='+encodeURIComponent('Suggestion: '+d.topic)+'&body='+encodeURIComponent(d.message);return}
+ b.disabled=true;b.textContent='Sending...';
+ fetch('/suggestions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}})}).then(function(x){
+  if(x.ok){m.className='ok';m.textContent='Thank you! Your suggestion was sent to our owners and managers.';f.reset()}
+  else{var t=x.j&&x.j.detail;m.className='err';m.textContent=typeof t==='string'?t:'Please write at least a few words.'}
+  b.disabled=false;b.textContent='Send suggestion'}).catch(function(){m.className='err';m.textContent='Could not send right now. Please email '+MAIL+' instead.';b.disabled=false;b.textContent='Send suggestion'})};
+['fd','fl'].forEach(function(i){$(i).onchange=render});$('fq').oninput=render;render();
+var nav=$('nav'),bg=$('burger');
+bg.onclick=function(){var o=nav.classList.toggle('show');bg.setAttribute('aria-expanded',o)};
+[].forEach.call(document.querySelectorAll('nav li > button'),function(b){b.onclick=function(){b.parentNode.classList.toggle('open')}});
+var ck=$('ck'),seen=false;try{seen=!!localStorage.getItem('ct_cookie')}catch(e){}ck.hidden=seen;
+ck.onclick=function(e){var v=e.target.getAttribute&&e.target.getAttribute('data-v');if(!v)return;try{localStorage.setItem('ct_cookie',v)}catch(x){}ck.hidden=true};
+})();
+</script>
+</body>
+</html>
