@@ -166,24 +166,23 @@ python create_demo_users.py      # one demo login per role + a demo lot
 
 ```mermaid
 flowchart LR
-    A["📡 ESP32 node<br/>or Simulator"] -->|POST /ingest| B["⚡ FastAPI"]
-    B --> C[("🗄️ SQLite<br/>SHA-256 hash chain")]
-    B --> D["🧠 Anomaly engine<br/>band + rate + context + IsolationForest"]
-    D --> E["🚨 Alerts"]
-    E --> F["📲 Notifier<br/>WhatsApp · SMS · Voice"]
-    B --> G["🌾 Lots + Certificate<br/>PDF · QR · /verify"]
-    H["📊 Dashboard"] <-->|REST| B
-    I["👨‍🌾 Farmer page /f/token"] <--> B
+    A["ESP32 node or Simulator"] -->|POST /ingest| B["FastAPI"]
+    B --> C[("SQLite - SHA-256 hash chain")]
+    B --> D["Anomaly engine"]
+    D --> E["Alerts"]
+    E --> F["Notifier: WhatsApp, SMS, Voice"]
+    B --> G["Lots and Certificate"]
+    H["Dashboard"] -->|REST| B
+    I["Farmer page"] -->|REST| B
 
-    style A fill:#e8a317,stroke:#14532d,color:#14532d
-    style B fill:#1f6f3d,stroke:#14532d,color:#ffffff
-    style C fill:#14532d,stroke:#e8a317,color:#ffffff
-    style D fill:#1f6f3d,stroke:#e8a317,color:#ffffff
-    style E fill:#c0392b,stroke:#7b1e14,color:#ffffff
-    style F fill:#e8a317,stroke:#14532d,color:#14532d
-    style G fill:#14532d,stroke:#e8a317,color:#ffffff
-    style H fill:#4c9a52,stroke:#14532d,color:#ffffff
-    style I fill:#4c9a52,stroke:#14532d,color:#ffffff
+    classDef gold fill:#e8a317,stroke:#14532d,color:#14532d
+    classDef green fill:#1f6f3d,stroke:#14532d,color:#ffffff
+    classDef dark fill:#14532d,stroke:#e8a317,color:#ffffff
+    classDef red fill:#c0392b,stroke:#7b1e14,color:#ffffff
+    class A,F gold
+    class B,D green
+    class C,G,H,I dark
+    class E red
 ```
 
 ### 🗂️ Project Structure
